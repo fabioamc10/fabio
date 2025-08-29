@@ -1,0 +1,35 @@
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+# Variáveis (PowerShell)
+$env:OPENAI_API_KEY="sua_chave_openai"
+$env:BING_API_KEY="sua_chave_bing"           # opcional (necessária para /chat com busca)
+$env:API_KEY="minha-chave-api"               # opcional
+
+uvicorn app:app --reload --port 8000
+
+# -----------------------------------------
+
+# Brownser Testing:
+
+# Iteration Documentation: http://127.0.0.1:8000/docs
+# Healthcheck: http://127.0.0.1:8000/health
+
+# ------------------------------------------
+
+# cURL example:
+
+curl -X POST http://127.0.0.1:8000/chat \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: minha-chave-api" \
+  -d '{
+    "message": "Qual a previsão do tempo em Lisboa hoje?",
+    "personality": "professor",
+    "auto_search": true,
+    "include_suggestions": true
+}'
